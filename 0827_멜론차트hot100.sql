@@ -4,6 +4,7 @@ alter table 멜론차트100 rename mct100;
 -- 주석문
 /*주석문 2*/
 
+
 -- 커서가 있는 한줄 실행 : ctrl +enter
 -- 여러줄 실행 : 여러줄 드래그 후 ctrl + shift + enter
 -- 전체 소스 실행 : ctrl + shift + enter
