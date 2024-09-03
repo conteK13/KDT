@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간에 따라 인사말 다르게 출력하기</title>
+</head>
+<body>
+    <h1 id = "test1"></h1>
+    <h1 id = "test2"></h1>
+    <script>
+        let time = new Date().getHours();
+        let msg;
+        document.getElementById("test1").innerHTML = "time=" +time;
+        if (time < 12){
+            msg = "Good Morning";
+        }else if(time < 18){
+            msg = "Good Afternoon";
+        }else{
+            msg = "Good Evening";
+        }
+        document.getElementById("test2").innerHTML = msg;
+    </script>
+</body>
+</html>
