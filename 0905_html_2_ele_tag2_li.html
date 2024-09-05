@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그 네임으로 가져온 데이터 확인하기 - list </title>
+</head>
+<body>
+    <ul>
+        <li> List item 1 </li>
+        <li> List item 2 </li>
+        <li> List item 3 </li>
+        <li> List item 4 </li>
+        <li> List item 5 </li>
+    </ul>
+    <script>
+        let list = document.getElementsByTagName("ul")[0];
+        let allitem = list.getElementsByTagName("li");
+        let i;
+
+        for(i=0; i<allitem.length; i++){
+            alert(allitem[i].innerHTML);
+        }
+    </script>
+</body>
+</html>

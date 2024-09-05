@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 기존 HTML 요소 삭제 </title>
+    <script>
+        function removeNode(){
+        let parent = document.getElementById("target");
+        let child = document.getElementById('p1');
+        parent.removeChild(child);
+    }
+    </script>
+
+</head>
+<body>
+    <div id = 'target'>
+        <p id = "p1"> 첫번째 단락</p>
+        <p id = "p2"> 두번째 단락</p>
+    </div>
+
+    <button type="button" onclick="removeNode()"> 누르세요 </button>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새로운 행 셀 추가</title>
+    <style>
+        table, td { border: 1px solid black;}
+    </style>
+    <script>
+        function insert(){
+            let table = document.getElementById("special");
+            let row = table.insertRow(0);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            cell1.innerHTML = "새로운 셀(1,1)"
+            cell2.innerHTML = "새로운 셀(1,2)"
+        }
+    </script>
+</head>
+<body>
+    <table id = "special">
+        <tr><td>(1,1) 셀</td> <td>(1,2) 셀</td></tr>
+        <tr><td>(2,1) 셀</td> <td>(2,2) 셀</td></tr>
+    </table>
+    <br>
+    <button type="button" onclick="insert()">행 추가</button>
+</body>
+</html>

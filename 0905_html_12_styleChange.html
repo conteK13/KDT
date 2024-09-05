@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 스타일 변경하기</title>
+    <script>
+        function changeStyle(){
+            document.getElementById("p1").style.color = "red";
+            document.getElementById("p1").style.fontFamily = "Impact";
+            
+            //document.getElementById("p1").style.fontFamily = "Century Schoolbook";
+            document.getElementById("p1").style.fontStyle = "italic";
+        }
+    </script>
+</head>
+<body>
+    <p id = "p1"> This is a paragraph. </p>
+    <input type="button" onclick="changeStyle()" value="눌러보세요">
+</body>
+</html>

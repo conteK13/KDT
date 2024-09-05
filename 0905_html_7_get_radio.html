@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 라디오 버튼의 값 가져오기 </title>
+    <script>
+        function getValue(){
+            let list = document.getElementsByName("color");
+            for(let i=0; i< list.length; i++){
+                if (list[i].checked){
+                    document.getElementById("result").value = list[i].value;
+                    break;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <input type="radio" name = "color" checked value="red">RED<br>
+        <input type="radio" name = "color" checked value="blue">BLUE<br>
+        <input type="radio" name = "color" checked value="green">GREEN<br>
+
+        <input type="button" onclick="getValue();" value="클릭">
+        <input type="text" id = "result" value="">
+    </form>
+</body>
+</html>
