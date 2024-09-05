@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 누르면 내용이 바뀌는 코드</title>
+    <script>
+        function func1(){
+            document.getElementById("span").innerHTML = "JAVA SCRIPT";
+        }
+        function func2(){
+            let s1 = document.getElementById("header").innerHTML;
+            document.getElementById("header").innerHTML = s1.replace("HTML", "JAVA SCRIPT");
+
+            let s2 = document.getElementById("button").innerHTML;
+            document.getElementById("button").innerHTML = s2.replace("HTML", "JAVA SCRIPT");
+        }
+
+    </script>
+</head>
+<body>
+    <h1 id="header"> 다음에 학습할 내용은 <span id="span">HTML</span>입니다.</h1>
+    <button onclick="func2();" id="button">HTML 학습이 끝나면 누르세요</button>
+
+</body>
+</html>
