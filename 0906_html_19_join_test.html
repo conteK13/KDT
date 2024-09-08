@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 회원가입 화면</title>
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+           background-color: #6084E4;
+        }
+
+        form{
+            margin: 20px auto;
+            padding: 5%;
+            background-color: white;
+            width: 400px;
+        }
+
+        fieldset{
+            padding: 30px 50px 30px 50px; /*북 동 남 서 */
+            font-weight: bold;
+            font-size: small;
+            border: 1px solid #232363;
+            border-radius: 4px;
+        }
+        
+        select, input{
+            background-color: #F5F5F5;
+            height: 25px;
+            border: 0;
+            width: 280px;
+        }
+
+        p {
+            color: red;
+            font-size: smaller;
+        }
+        .ch{
+            color: green;
+        }
+        .inputID{
+            width: 200px;
+        }
+
+        .inputCH{
+            background-color: #232363;
+            color: white;
+            font-size: smaller;
+            width: 80px;
+            height: 27px;
+            text-align: center;
+        }
+
+        
+    input[type="radio"] {
+        display: none;
+        border: 1px #F5F5F5;
+    }
+
+    label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8em;
+        padding: 0.4em 4.4em;
+        border: 1px solid #F5F5F5;
+    }
+    label:before {
+        height: 1em;
+        width: 1em;
+        border: 1px #F5F5F5;
+    }
+
+    input[type="radio"]:checked + label {
+        background-color: #F5F5F5;
+    }
+
+    .join{
+        background-color: #232363;
+        color: white;
+        height: 40px;
+        width: 400px;
+        border-radius: 4px;
+    }
+    </style>
+    <script>
+        //정규식 목록
+        regularid = /^[a-z0-9_-]{5,20}$/;
+        regularpass = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^*+=-_])[a-zA-Z0-9!@#$%^*+=-_]{8,25}$/;
+        regularyear = /^\d{4}$/;
+        regulartel = /^\d{11}$/;
+
+        //전역변수 : 조건을 만족했는지 확인하기 위해 사용
+        let checkid = false;
+        let checkdate = false;
+        let checkyear = false;
+        let checkday = false;
+        
+
+        function checktrue(obj, icon){
+            obj.style.backgroundColor="#F5F5F5";
+            document.getElementById(icon).innerHTML= " ✔";
+        }
+        function checkfalse(obj){
+            obj.style.backgroundColor="#FCCEDB";
+            obj.focus();
+        }
+        
+        function fid(){
+            // 서버에서 아이디를 가져온다(중복확인)
+            let saveid = 'aaaaa';                       //서버에서 가져온 아이디를 'aaaaa' 아이디라고 가정한다.
+            checkid = false;
+
+            let obj = document.getElementById("id")
+            let userid = obj.value;
+            
+            if (saveid == userid){                      //서버에 저장된 아이디와 같다면
+                checkfalse(obj);
+                warning = "이미 사용중인 아이디입니다.";
+            }else if(!userid.match(regularid)){         //정규식 조건을 만족하지 못한다면
+                warning = "아이디에는 5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.";
+                checkfalse(obj);
+            }else{
+                checkid=true;
+                warning = "";
+                checktrue(obj, "id_ch");
+            }
+            document.getElementById("warning_id").innerHTML= warning;
+        }
+
+        function fpass(){
+            //함수 실행할 때마다 초기화
+            document.getElementById('pass_ch').innerHTML = '';
+            let checkpass = false;
+
+            let obj = document.getElementById("pass");
+            let userpass = obj.value;
+
+            if(!(userpass.match(regularpass))){
+                warning = "비밀번호: 8~25자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.";
+                checkfalse(obj);
+            }else{
+                obj.style.backgroundColor="#F5F5F5";
+                obj = document.getElementById("passch")
+                let userpassch = obj.value;
+                if (userpassch.length == 0){
+                    warning = "";
+                    //checkfalse(obj);
+                }else if(userpass != userpassch){
+                    warning = "비밀번호와 비밀번호 확인이 다릅니다!";
+                    checkfalse(obj);
+                }else{
+                    checkpass=true
+                    warning = "";
+                    checktrue(obj, "pass_ch");
+                }
+            }
+            document.getElementById("warning_pass").innerHTML= warning;
+            return checkpass;
+        }
+
+        function fname(){
+            document.getElementById('name_ch').innerHTML = '';
+            let checkname = false;
+
+            let obj = document.getElementById("name");
+            let username = obj.value;
+
+            if(username.length == 0){
+                warning="이름을 입력하세요";
+                checkfalse(obj);
+            }else{
+                warning="";
+                checkname=true;
+                checktrue(obj,"name_ch")
+            }
+            document.getElementById("warning_name").innerHTML= warning;
+            return checkname;
+        }
+
+        function fyear(){
+            document.getElementById('date_ch').innerHTML = '';
+            checkyear = false;
+
+            let obj = document.getElementById("year");
+            let useryear = obj.value;
+
+            if (!useryear.match(regularyear)){
+                warning = "출생년도를 4자리의 숫자로 입력하세요";
+                checkfalse(obj);
+            }else{
+                warning = ""
+                checkyear = true;
+                if (checkyear && checkday){
+                    checktrue(obj, "date_ch");
+                }else{
+                    obj.style.backgroundColor="#F5F5F5";
+                    
+                }
+            }
+            return checkyear
+            document.getElementById("warning_date").innerHTML= warning;
+        }
+
+        function fday(){
+            document.getElementById('date_ch').innerHTML = '';
+            let checkdate = false;
+
+            let obj = document.getElementById("days");
+            let userday = obj.value;
+            if(!((userday>=1) && (userday<=31))){
+                warning="출생일을 제대로 입력하세요";
+                checkfalse(obj);
+            }else{
+                warning = ""
+                checkday = true;
+                if (checkyear && checkday){
+                    checktrue(obj, "date_ch");
+                }else{
+                    obj.style.backgroundColor="#F5F5F5";
+                
+                }
+            }
+            return checkday
+            document.getElementById("warning_date").innerHTML= warning;
+        }
+
+        function fgender(){
+            document.getElementById("gender_ch").innerHTML= "";
+            let checkgender = false;
+
+            let obj = document.getElementsByName("gender");
+            
+            if(!(obj[0].checked || obj[1].checked)){
+                checkgender = false;
+                warning="성별을 선택하세요";
+            }else{
+                checkgender=true;
+                warning=""
+                document.getElementById("gender_ch").innerHTML= " ✔";
+            }
+            document.getElementById("warning_gender").innerHTML= warning;
+            return checkgender;
+        }
+
+        function ftel(){
+            document.getElementById('tel_ch').innerHTML = '';
+            let checktel = false;
+
+            let obj = document.getElementById("tel");
+            let usertel = obj.value;
+
+            if(!(usertel.match(regulartel))){
+                warning = "휴대전화 11자리를 특수기호 없이 숫자로 입력하세요<br>예시 : 01012341234";
+                checkfalse(obj);
+            }else{
+                warning= "";
+                checktel = true;
+                checktrue(obj, "tel_ch");
+            }
+            document.getElementById("warning_tel").innerHTML= warning;
+            return checktel;
+        }
+
+        function fagree(){
+            document.getElementById('agree_ch').innerHTML = '';
+            let checkagree = false;
+            let obj = document.getElementById("agree");
+
+            if (!obj.checked){
+                warning="약관에 동의하세요";
+            }else{
+                checkagree = true;
+                warning=""
+                document.getElementById("agree_ch").innerHTML= " ✔";
+            }
+            document.getElementById("warning_agree").innerHTML= warning;
+            return checkagree
+        }
+        
+        function checkAll(){
+            if(checkid ==false){
+                let obj = document.getElementById("id");
+                checkfalse(obj);
+            }
+            
+            fpass();
+            fname();
+            fyear();
+            fday();
+            fgender();
+            ftel();
+            fagree();
+
+
+            if(checkid && fpass() && fname() && fyear() && fday() && fgender() && ftel() && fagree()){
+                alert("가입이 완료되었습니다.");
+            }else{
+                alert("수정 후 다시 제출해 주세요.");
+                let obj = document.getElementById("passch");
+                if(obj.value.length==0){
+                    checkfalse(obj);
+                }
+            }
+        }
+    </script>
+</head>
+<body> 
+    <form>
+        <h1> 회원가입</h1><br>
+        <fieldset>
+            <legend style="font-size: small;"> 아이디 비밀번호 설정</legend>
+            <!--아이디 설정 -->
+            <span>아이디</span><span id="id_ch" class="ch"></span><br>
+            <div style=" display: flex;">
+                <input type="text" id="id" class="inputID" onchange="document.getElementById('id_ch').innerHTML = ''; checkid = false;">
+                <input type="button" class="inputCH" onclick="fid();" value="중복 확인">
+            </div>
+            <p id="warning_id"> </p>
+            <br>
+
+            <!-- 비밀번호 설정 -->
+            <span>비밀번호</span><span id="pass_ch" class="ch"></span><br>
+            <input type="password" id="pass" onchange="fpass();"> <br>
+            <span>비밀번호 확인</span><br>
+            <input type="password" id="passch" onchange="fpass();"> <br>
+            <p id = "warning_pass"></p>
+        </fieldset>
+        <br><br>
+        <fieldset>
+            <legend> 개인정보 입력 </legend>
+            <!-- 이름 입력 -->
+            <span>이름</span><span id="name_ch" class="ch"></span><br>
+            <input type="text" id="name" onchange="fname();"><br>
+            <p id="warning_name"> </p>
+            <br>
+
+            <!-- 생년월일 입력-->
+            <span>생년월일</span><span id="date_ch" class="ch"></span><br>
+            <div style="display: flex; align-items: center;">
+                <input type="text" id="year" style="width: 100px;" onchange="fyear();">
+                <span style="margin: 0px 10px 0px 5px;">년</span>
+                <select id = "month" style="width: 50px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <span style="margin: 0px 10px 0px 5px;">월 </span>
+                <input type="text" id="days" style="width: 50px;" onchange="fday();">
+                <span style="margin: 0px 10px 0px 5px;">일</span>
+            </div>
+            <p id="warning_date"> </p>
+            <br>
+
+            <!-- 성별 입력 -->
+            <span>성별</span><span id="gender_ch" class="ch"></span><br>
+            <div style="display: flex;">
+                <input type="radio" name = "gender" id="male" onclick="fgender();">
+                <label for="male" >남성</label>
+                <input type="radio" name = "gender" id="female" onclick="fgender();">
+                <label for="female" >여성</label>
+            </div>
+            <p id="warning_gender"> </p>
+            <br>
+
+            <!-- 전화번호 입력-->
+            <span>전화번호</span><span id="tel_ch" class="ch"></span><br>
+            <input type="text" id="tel" onchange="ftel();"><br>
+            <p id="warning_tel"> </p>
+            <br>
+
+            <!-- 약관동의 확인-->
+            <span>약관동의</span><span id="agree_ch" class="ch"></span><br>
+            <div style="display: inline-flex; align-items: center;">
+            <input type="checkbox" id="agree" style="width: 1em;" onclick="fagree();"> <span style="font-size: 0.8em;" >약관에 동의합니다.</span><br>
+            </div>
+            <p id="warning_agree"> </p>
+            <br>
+            </fieldset>
+        <!-- <input type="reset" value="초기화">  -->
+        <br><br>
+        <input type="button" value="가입하기" onclick="checkAll()" class="join">
+    </form>
+</body>
+</html>

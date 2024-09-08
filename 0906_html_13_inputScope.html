@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 값의 범위 지정</title>
+    <script>
+        function scope(){
+            x = document.getElementById("answer").value;
+
+            if (isNaN(x)|| x < 1 || x >100){                // isNaN 숫자가 아닌 경우
+                document.getElementById("result").innerHTML = "입력값이 올바르지 않습니다."
+                document.getElementById("result").style.color= "red"
+                document.getElementById("answer").focus();
+            }else{
+                document.getElementById("result").innerHTML = "올바른 입력값입니다."
+                document.getElementById("result").style.color= "black"
+            }
+        }
+    </script>
+</head>
+<body>
+    <p> 1부터 100 사이의 정수를 입력하시오.</p>
+    <input type="text" id="answer"><input type="button" value="제출" onClick = 'scope();'><br>
+    <p id = "result"></p>
+</body>
+</html>

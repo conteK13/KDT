@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> join - CheckLength </title>
+    <script>
+        function checkLength(obj, min, max){
+            let s =obj.value;
+            if(s.length == 0){
+                alert("이름은 필수 입력이며, "+ min+"문자와 "+ max+"문자 사이로 입력해주세요.")
+                return false
+            }else if(s.length >= min && s.length <= max){
+                return true;
+            }else{
+                alert(min+"문자와 "+ max+"문자 사이로 입력해주세요.");
+                obj.focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <form method="post">
+        이름(6~8 문자) : <input type="text" id="name" name = "name"> <br>
+        <input type="button" value="확인" onclick="checkLength(document.getElementById('name'), 6, 8)">
+    </form>
+</body>
+</html>
