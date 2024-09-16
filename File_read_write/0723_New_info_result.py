@@ -1,6 +1,7 @@
 input_file_name = "info_result.txt"
 new_output_file_name = "new_info_result.txt"
 
+
 with open(input_file_name, "r", encoding='utf-8') as read_file:
     content = read_file.read()
 
