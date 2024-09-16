@@ -1,5 +1,5 @@
 import random
- 
+
 hanguls = list("가나다라마바사아자차카타파하")
 
 with open("info.txt", "w",encoding="UTF-8") as file:
