@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구조 선택자 사용시 주의사항</title>
+    <style>
+        /*a:first-child : 를 띄어쓰면 적용 안됨
+        li > a:first-child{ color : red; } 
+        li의 자손 a의 후손은 없는데, li의 자손인 a를 모두 빨간색으로 변경하게 됨 */
+        li:first-child > a{ color : red; } 
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+        <li><a href="#">주의 사항</a></li>
+    </ul>
+</body>
+</html>
