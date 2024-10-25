@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+body {
+	font-family:snas=serif;
+	text-align : center;
+} 
+
+h1 {
+	color : skyblue;
+}
+
+p{
+	width : 80%;
+	height : 400px;
+	margin : auto;	/* 바깥여백 */
+	background-color : beige;
+	padding : 1em;	/* em은 상대적인 크기. 16px정도*/
+}
+
+/* today와 today2의 글자색을 서로 다르게 주기*/
+.today {
+	color : skyblue;
+}
+
+.today2 {
+	color : pink;
+}
