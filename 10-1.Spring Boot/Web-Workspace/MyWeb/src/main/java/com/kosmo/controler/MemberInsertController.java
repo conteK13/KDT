@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kosmo.model.MemberDAO;
+import com.kosmo.model.MemberDTO;
+
 
 @WebServlet("/signupEnd.do")
 public class MemberInsertController extends HttpServlet {
@@ -33,15 +36,18 @@ public class MemberInsertController extends HttpServlet {
 			return;
 		}
 		
-		// 3. Model 객체 생성(MemberDTO)해서 1번에서 받은 앖을 MemberDTO에 setting
-		// 4. 			   (MemberDAO) 객체 생성 후 insert() 호출하고 결과값 받기
+		// 3. Model 객체 생성(MemberDTO)해서 1번에서 받은 값을 MemberDTO에 setting
+		MemberDTO user=new MemberDTO(0, name, userId, userPw, email, 1, null);
 		
+		// 4. 			   (MemberDAO) 객체 생성 후 insert() 호출하고 결과값 받기
+		MemberDAO dao = new MemberDAO();
+		int result = dao.insert(user);
+		System.out.println("result : " + result);
 		
 		// 5. req에 결과에 따른 값들을 저장
-		int result = 1;		// insert문에 의해 영향받은 레코드 개수 반환할 예정
 		String msg = (result > 0)? "회원가입 성공" : "회원가입 실패";
-		String loc = (result > 0)? "/login.do" : "javascript:history.back()";
-		
+		String loc = (result > 0)? "/memberlist.do" : "javascript:history.back()";
+		// /login.do
 		req.setAttribute("msg", msg);
 		req.setAttribute("loc", loc);
 		
