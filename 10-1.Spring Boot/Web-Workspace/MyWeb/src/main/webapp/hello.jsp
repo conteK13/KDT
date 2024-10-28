@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1> Hello JSP</h1>
-	<h2> JSP - JAVA Server Page의 약자. 동적인 처리를 담당합니다.</h2>
+	<h2> JSP - JAVA Server Page의 약자. 동적인 처리를 담당합니다. [${loginUser.userId}]님 로그인중...</h2>
 	<hr>
 	<p>
 	

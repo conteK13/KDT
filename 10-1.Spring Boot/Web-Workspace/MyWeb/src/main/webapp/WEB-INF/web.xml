@@ -9,7 +9,26 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <filter>
+      <filter-name>LoginCheckFilter</filter-name>
+      <filter-class>com.kosmo.filter.LoginCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>LoginCheckFilter</filter-name>
+      <url-pattern>/mypage.do</url-pattern>
+      <url-pattern>/memberlist.do</url-pattern>
+  </filter-mapping>
+
+  <filter>
+      <filter-name>AdminCheckFilter</filter-name>
+      <filter-class>com.kosmo.filter.AdminCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>AdminCheckFilter</filter-name>
+      <url-pattern>/memberlist.do</url-pattern>
+  </filter-mapping>
   
+
   <!-- Prevent JSP =================================== -->
 <!--   <security-constraint>
 	<web-resource-collection>

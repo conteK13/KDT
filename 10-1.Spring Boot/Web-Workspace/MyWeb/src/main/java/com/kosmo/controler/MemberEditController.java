@@ -73,8 +73,8 @@ public class MemberEditController extends HttpServlet {
 
 		
 		// 6. 받은 결과값에 따라 msg, loc 처리
-		String msg = (result >0)? "회원정보 수정 성공" :"회원정보 수정 실패";
-		String loc = "memberlist.do";
+		String msg = (result >0)? "회원정보 수정 성공" : "회원정보 수정 실패";
+		String loc = (result >0)? "memberlist.do" : "javascript:history.back()";
 		
 		// 7. req에 msg, loc 저장
 		req.setAttribute("msg", msg);

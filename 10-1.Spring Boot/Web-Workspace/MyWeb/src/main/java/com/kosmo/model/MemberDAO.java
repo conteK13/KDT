@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kosmo.exception.NoMemberException;
 import com.kosmo.util.DBUtil;
 
 
@@ -166,4 +167,56 @@ public class MemberDAO {
 			DBUtil.close(con, ps, rs);
 		}
 	}//------------------------------------
+	
+	// 유저 ID로 모든 회원정보를 가져오는 메서드
+	public MemberDTO findByUserId(String userId) {
+		try {
+			con = DBUtil.getConnection();
+			String sql = "select * from member where userId =?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, userId);
+			rs = ps.executeQuery();
+			
+			List<MemberDTO> arrList = makeList(rs);
+			if(arrList == null || arrList.size() ==0) {
+				return null;
+			}
+			//userId ==> unique제약 조건. 있다면 1명
+			MemberDTO user = arrList.get(0);
+			return user;
+//			return arrList.get(0);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			DBUtil.close(con, ps, rs);
+		}
+		 
+	}
+	
+	public MemberDTO loginCheck(MemberDTO tmpDTO)
+	throws NoMemberException
+	{
+		MemberDTO dbUser = findByUserId(tmpDTO.getUserId());
+		if (dbUser==null) {
+			//아이디가 없는 경우 ==? 사용자정의 예외를 발생시키자.
+			throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않습니다");
+		}
+		
+		// 아이디가 있는 경우
+		// 비밀번호가 일치 여부 체크
+		if(!dbUser.getUserPw().equals(tmpDTO.getUserPw())) {
+			// 일치하지 않는 경우
+			throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않습니다");
+		}
+		
+		// 탈퇴회원인 경우
+		if(dbUser.getMstate()<0) {
+			throw new NoMemberException("회원이 아닙니다. 회원 가입 하세요");
+		}
+		
+		// 회원인 경우
+		return dbUser;
+	}//-----------------------------------
 }//class///////////////////////////////////////

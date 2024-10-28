@@ -42,7 +42,12 @@
 	<h1> 회원 목록 [관리자 페이지 - Admin] </h1>
 	
 	<%-- ${members} --%>	<!-- ArrayList객체 -->
-	 
+	<div style="text-align:center">
+		<a href = "/" >Home</a>
+		<a href = "/signup.do">회원가입</a>		
+	</div>
+	<br>
+	<br>
 	<table id = "members">
 		<thead>
 			<tr>
