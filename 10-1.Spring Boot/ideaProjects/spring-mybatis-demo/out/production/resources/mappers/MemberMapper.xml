@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper
+3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MemberMapper인터페이스 "패키지명.클래스명" => 를 namespace에 기술해야 함  -->
+<mapper namespace="com.kosmo.user.mapper.MemberMapper">
+    <!-- 각 엘리먼트의 id는 MemberMapper 인터페이스의 메서드 명으로 주어야 한다 -->
+    <insert id = "insertMember" parameterType="com.kosmo.user.domain.MemberDTO">
+        insert into member(idx, name, userId, userPw, email, mstate, indate)
+        values(member_seq.nextval, #{name}, #{userId}, #{userPw},
+        #{email:VARCHAR}, 1, sysdate)
+    </insert>
+</mapper>

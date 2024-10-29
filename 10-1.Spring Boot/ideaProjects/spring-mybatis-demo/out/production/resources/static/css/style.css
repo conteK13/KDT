@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+body {
+    font-family:sans-serif;
+    color : #333333;
+    line-height:1.6;
+}
+
+/* header 영역----------*/
+.header{
+    background-color:#2c3e50;
+    color : #fff;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:15vh;
+    box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header .title h1 {
+    font-size : 1.9em;
+    margin : 1px;
+}
+
+.header .title p{
+    font-size:0.8em;
+    color : #d9e6f2;
+    margin : 0;
+}
+
+.header .navi ul{
+    list-style : none;
+    display :flex;
+    gap : 20px; /* 메뉴 간격 */
+    padding : 0;
+    margin : 0;
+}
+
+.header .navi ul li{
+    position : relative;
+}
+
+.header .navi ul li a {
+    color : #fff;
+    text-decoration : none;
+    font-size:1em;
+    padding : 10px 15px;
+    .header .navi ul li a
+    transition : background-color 0.3s ease;
+}
+
+.header .navi ul li a:hover{
+    color : #0073e6;
+    background-color : #e6f2ff;
+    border-radius:5px;
+}
+
+/* 본문--------------------------*/
+.container {
+    max-width : 1200px;
+    margin : 0 auto;
+    padding : 20px;
+    background-color : #f9f9f9;
+    border-radius : 5px;
+    box-shadow : 0 4px 8px rgba(0,0,0,0.1);
+    min-height : 65vh;
+}
+
+a:link{
+    text-decoration:none;
+}
+
+.wrap {
+    text-align:center;
+    padding : 25px 0;
+}
+
+/* footer-----------------------*/
+.footer{
+    background-color:#c0c9d1;
+    color:#222;
+    padding:20px;
+    text-align:center;
+    line-height:1.6;
+    border-top : 3px solid #ddd;
+    font-size : 0.8em;
+    height:10vh;
+    margin-bottom:0;
+}
+
