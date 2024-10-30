@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <!-- 타입 별칭 설정============================ -->
-    <!--
     <typeAliases>
+        <typeAlias type="com.kosmo.user.domain.MemberDTO" alias="Member"/>
     </typeAliases>
-    -->
+
 </configuration>

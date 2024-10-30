@@ -36,7 +36,8 @@
 			<tr>
 				<th> 아이디 </th>
 				<td> 
-					<input type = "text" id = "userId" name = "userId" placeholder="ID">
+					<input type = "text" id = "userId" name = "userId" readonly placeholder="ID">
+					<button type = "button" onclick="openWin()"> 아이디 중복 체크</button>
 				</td>
 			</tr>
 			<tr>
@@ -60,4 +61,13 @@
 			</tr>
 		</table>
 	</form>
+	<script>
+	    let win = null;
+	    const openWin = function(){
+	        //open(url, target, "속성들")
+	        let url = "idCheck"
+	        win = window.open(url, "idCheck", "width = 400, height = 400, left = 100, top=100");    // 팝업창 열기
+
+	    }//------------------------
+	</script>
 </div>

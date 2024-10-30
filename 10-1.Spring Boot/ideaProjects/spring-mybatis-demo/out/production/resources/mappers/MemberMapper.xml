@@ -4,10 +4,57 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MemberMapper인터페이스 "패키지명.클래스명" => 를 namespace에 기술해야 함  -->
 <mapper namespace="com.kosmo.user.mapper.MemberMapper">
-    <!-- 각 엘리먼트의 id는 MemberMapper 인터페이스의 메서드 명으로 주어야 한다 -->
-    <insert id = "insertMember" parameterType="com.kosmo.user.domain.MemberDTO">
+    <!--
+        각 엘리먼트의 id는 MemberMapper 인터페이스의 메서드 명으로 주어야 한다
+        resources/config/mybatis-config.xml에
+        com.kosmo.user.domain.MemberDTO 타입의 별칭을 Member로 설정했음
+    -->
+    <insert id = "insertMember" parameterType="Member">
         insert into member(idx, name, userId, userPw, email, mstate, indate)
         values(member_seq.nextval, #{name}, #{userId}, #{userPw},
         #{email:VARCHAR}, 1, sysdate)
     </insert>
+
+    <sql id="all_columns">
+        idx, name, userId, userPw, email, mstate, indate,
+        decode(mstate, 1, '활동회원', 0, '정지회원',-1, '탈퇴회원', 9, '관리자') mstateStr
+    </sql>
+
+    <!--
+        select 할때는 반드시 resultType을 기술해야 함
+        ArrayList<MemberDTO>에 담겨오지만
+        resultType을 기술할 때는 Generic에 기술한 타입(MemberDTO)을 써줘야 함
+        DML 은 자동으로 int 설정(적용된 행의 개수 반환용)되지만
+        select문은 반드시 resultType을 설정해줘야 함.
+    -->
+    <select id="listMember" resultType="Member">
+        select
+        <include refid="all_columns"/>
+        from member order by idx asc
+    </select>
+
+
+
+    <!-- 기본자료형을 사용하기 위해선 "_int"로 설정하는 게 좋음  -->
+    <select id="findMemberByIdx" resultType="Member" parameterType="_int">
+        select
+        <include refid="all_columns"/>
+        from member where idx = #{value}
+    </select>
+
+    <!-- 기본자료형을 사용하기 위해선 "_int"로 설정하는 게 좋음  -->
+    <select id="findMemberByUserId" resultType="Member" parameterType="String">
+        select
+        <include refid="all_columns"/>
+        from member where userId = #{value
+    </select>
+
+    <update id="updateMember" parameterType="Member">
+        update member set name = #{name}, userId= #{userId},
+        email =#{email:VARCHAR}, mstate = #{mstate} where idx=#{idx}
+    </update>
+
+    <delete id="deleteMemberByIdx" parameterType="_int">
+        delete from member where idx = #{idx}
+    </delete>
 </mapper>

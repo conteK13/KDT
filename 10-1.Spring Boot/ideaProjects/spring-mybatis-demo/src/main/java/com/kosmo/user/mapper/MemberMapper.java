@@ -15,5 +15,8 @@ public interface MemberMapper {
 
     int insertMember(MemberDTO user);
     List<MemberDTO> listMember();
-
+    MemberDTO findMemberByIdx(int idx);
+    MemberDTO findMemberByUserId(String userId);
+    int deleteMemberByIdx(int idx);
+    int updateMember(MemberDTO user);
 }
