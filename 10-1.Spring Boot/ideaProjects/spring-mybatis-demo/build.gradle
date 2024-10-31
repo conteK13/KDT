@@ -40,6 +40,9 @@ dependencies {
 	implementation 'jakarta.servlet:jakarta.servlet-api'			// Jakarta Servlet
 	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'	//jstl
 	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'		// jstl
+
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'	// @Resource
+	implementation 'jakarta.inject:jakarta.inject-api:2.0.1'		// @Inject
 }
 
 tasks.named('test') {

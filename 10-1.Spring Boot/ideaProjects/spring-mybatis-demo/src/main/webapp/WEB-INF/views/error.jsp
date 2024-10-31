@@ -4,12 +4,16 @@
 <html>
     <head>
         <mata charset = "utf-8">
-        <title> Message </title>
+        <title> Error Page </title>
+        <style>
+            .error {
+                color :red;
+            }
+        </style>
     </head>
     <body>
-        <script>
-            alert('${msg}');
-            location.href = '${loc}';
-        </script>
+        <div class= "wrap">
+            <h3 class = "error"> ${msg}</h3>
+        </div>
     </body>
 </html>

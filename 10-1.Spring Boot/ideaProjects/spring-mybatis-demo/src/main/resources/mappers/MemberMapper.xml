@@ -46,8 +46,16 @@
     <select id="findMemberByUserId" resultType="Member" parameterType="String">
         select
         <include refid="all_columns"/>
-        from member where userId = #{value
+        from memberView where userId = #{value}
     </select>
+    <!-- 탈퇴 회원을 제의한 MemberView를 생성하여 로그인할 때 사용하자-->
+    <!--
+    create or replace view memberView
+    as select m.*,
+    decode(mstate, 0, '정지회원', 1, '활동회원', 9, '관리자') mstateStr
+    from member m
+    where m.mstate > -1
+    -->
 
     <update id="updateMember" parameterType="Member">
         update member set name = #{name}, userId= #{userId},

@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public int deleteMemberByIdx(int idx) {
         return userMapper.deleteMemberByIdx(idx);
-    }
+    }//-------------------
 
     @Override
     public int updateMember(MemberDTO user) {
@@ -66,10 +66,11 @@ public class MemberServiceImpl implements MemberService{
         }
         // 사용가능
         return true;
-    }
+    }//-------------------
 
     @Override
     public MemberDTO loginCheck(MemberDTO tmpUser) throws NoMemberException {
+        // userId로 회원정보 가져오기
         MemberDTO dbUser = userMapper.findMemberByUserId(tmpUser.getUserId());
         if(dbUser==null){
             // 아이디가 없는 경우
@@ -81,11 +82,11 @@ public class MemberServiceImpl implements MemberService{
             throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않습니다.");
         }
 
-        // 탈퇴회원인 경우
+        /*// 탈퇴회원인 경우
         if(dbUser.getMstate()<0) {
             throw new NoMemberException("회원이 아닙니다. 회원 가입 하세요");
-        }
+        }*/
 
         return dbUser;
-    }
-}
+    }//-------------------
+}////ServiceImpl 종료////////////////////////

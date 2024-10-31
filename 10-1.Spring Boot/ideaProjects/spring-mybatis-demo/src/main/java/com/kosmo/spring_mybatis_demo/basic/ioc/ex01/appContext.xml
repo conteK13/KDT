@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <!--
+       인터페이스를 상속하고 있는 객체를 생성 -> 변수에 대입해주고
+       -> 메인에서 appContext.xml 이 xml의 경로를 변수에 담아준 후
+       -> 스프링 컨테이너로 이 xml파싱
+    -->
+    <bean id="mb1" class="com.kosmo.spring_mybatis_demo.basic.ioc.ex01.MessageBeanImpl">
+    </bean>
+
+    <!-- MessageBean mb1 = new MessageBeanImpl()과 동일-->
+
+    <bean id="mb2" class="com.kosmo.spring_mybatis_demo.basic.ioc.ex01.MessageBeanImpl">
+        <!-- MessageBeanImpl의 greeting 변수로 <value>값이 들어감 -->
+        <property name="greeting">
+            <value>환절기 감기 조심하세요</value>
+        </property>
+        <!-- MessageBean mb1 = new MessageBeanImpl()과 동일-->
+        <!-- mb2.setGreeting() -->
+        <property name="name" value="홍길동"/>
+        <!-- mb2.setName("홍길동")-->
+        <property name="today">
+            <ref bean = "date"/>
+        </property>
+        <!-- mb2.setToday(date); -->
+        <property name="random" ref="ran"/>
+        <!-- mb2.setRandom(ran); -->
+    </bean>
+
+    <bean id="date" class="java.util.Date"/>
+    <!-- Date date = new Date() 와 동일 -->
+    <bean id="ran" class="java.util.Random"/>
+
+</beans>
