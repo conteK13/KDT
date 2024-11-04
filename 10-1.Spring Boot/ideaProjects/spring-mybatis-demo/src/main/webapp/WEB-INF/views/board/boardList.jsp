@@ -28,7 +28,18 @@
                 <c:if test ="${boardList != null && not empty boardList}">
                     <c:forEach var = "board" items = "${boardList}">
                         <li> <c:out value="${board.num}"/> </li>
-                        <li> <a href="/board/view?num=<c:out value='${board.num}'/>"> <c:out value="${board.title}"/> </a> </li>
+                        <li class = "title"> <a href="/board/view?num=<c:out value='${board.num}'/>">
+                        <c:out value="${board.title}"/>
+                        <!-- 1일 이내에 쓴 글이라면 New 이미지 붙여주기 -->
+                        <c:if test = "${board.newImg < 1}">
+                            <img src = "/images/new.png" style="width : 16px" >
+                        </c:if>
+
+                        <c:if test = "${board.fileName !=null}">
+                            <img src = "/images/attach.png" style="width : 16px" >
+                        </c:if>
+                        </a> </li>
+
                         <li> <c:out value="${board.userId}"/> </li>
                         <li>
                             <fmt:formatDate value="${board.wdate}" pattern="yy-MM-dd"/>
@@ -44,10 +55,13 @@
             </ul>
             <div class="clear"></div>
             <div class = "divTotal">
-                <span> 총 게시글수 : ${totalCount} </span>
-                <span> 1 / 3 pages </span>
+                <span> 총 게시글수 : ${totalCount}개 </span> &nbsp; &nbsp;
+                <span> ${paging.pageNum} / ${paging.pageCount} pages </span>
             </div>
             <!-- 페이지 네비게이션------------------- -->
+            <c:forEach var="i" begin="1" end="${paging.pageCount}">
+                <a href = "list?pageNum=${i}" > [<c:out value="${i}"/>] </a>
+            </c:forEach>
             <!-- -------------------------------- -->
 
         </div>

@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 @Data
 public class BoardDTO {
     // property
+    private int newImg;         // 24시간 이내에 쓴 글의 값은 0
+
     private int num;
     private String userId;
     private String passwd;

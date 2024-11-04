@@ -36,21 +36,23 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDTO findBoardByNum(int num) {
+        // 글 내용 보기 ==> 조회수 증가
+        // int n = this.updateReadnum(num); => 삭제할때도 사용하므로 지우기
         return boardMapper.findBoardByNum(num);
     }
 
     @Override
     public int updateReadnum(int num) {
-        return 0;
+        return boardMapper.updateReadnum(num);
     }
 
     @Override
     public int deleteBoardByNum(int num) {
-        return 0;
+        return boardMapper.deleteBoard(num);
     }
 
     @Override
     public int updateBoard(BoardDTO board) {
-        return 0;
+        return boardMapper.updateBoard(board);
     }
 }

@@ -13,4 +13,8 @@ public interface BoardMapper {
 
     int getTotalCount(PagingDTO paging);
     BoardDTO findBoardByNum(int num);
+    int updateReadnum(int num);
+    int deleteBoard(int num);
+
+    int updateBoard(BoardDTO board);
 }

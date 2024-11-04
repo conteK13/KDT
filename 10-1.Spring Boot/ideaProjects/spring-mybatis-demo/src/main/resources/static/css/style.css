@@ -206,6 +206,7 @@ ul.boardList li:nth-child(5n+1){
 
 ul.boardList li:nth-child(5n+2){
     width:40%;
+    text-align:left;
 }
 
 ul.boardList li:nth-child(5n+3){
@@ -217,4 +218,54 @@ ul.boardList li:nth-child(5n+4){
 }
 ul.boardList li:nth-child(5n){
     width:10%;
+}
+
+/*  게시글 글 내용 스타일 */
+#boardView {
+    width : 90%;
+    margin : auto;
+}
+
+#boardView table{
+    width:100%;
+    max-width:760px;
+    margin : auto;
+    border-collapse : collapse;
+}
+
+#boardView table td{
+    padding : 8px;
+}
+
+#boardView #content{
+   height : 300px;
+}
+
+#divPasswd {
+    width : 70%;
+    margin : auto;
+    padding : 8px;
+    text-align : center;
+    margin-top : 1em;
+    display : none;
+}
+
+#divPasswd input{
+    padding : 5px;
+}
+
+#btn1 {
+    border : none;
+    background-color : #3f3;
+    padding : 4px;
+    border-radius : 5px;
+}
+
+li.title {
+    max-width:40%;
+    overflow:hidden;
+    text-overflow:ellipsis;   /* 말줄임표(...) */
+    white-space:nowrap;
+    display: inline-block;
+    vertical-align: top;
 }

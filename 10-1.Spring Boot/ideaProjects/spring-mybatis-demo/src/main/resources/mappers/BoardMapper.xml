@@ -22,12 +22,65 @@
         select count(num) from board
     </select>
 
-    <select id="listBoard" resultType="Board" parameterType="Paging">
+    <select id="listBoard_old" resultType="Board" parameterType="Paging">
         select * from board order by num desc
     </select>
 
-    <select id="findBoardByNum" resultType="Board" parameterType="_int">
-        select num, wdate, userId, fileName, originFilename, fileSize, title, content from board where num=#{num}
+    <select id="listBoard" resultType="Board" parameterType="Paging">
+        select * from
+        (select rownum rn, A.* from
+        (select (sysdate- to_date(to_char(wdate,'yy/mm/dd'))) newImg, b.*
+        from board b order by num desc) A)
+        where rn between #{start} and #{end}
     </select>
+
+    <!-- 조회수 증가 -->
+    <update id="updateReadnum" parameterType="_int">
+        update board
+        <set>
+            readnum = readnum+1
+        </set>
+        <where>
+            num = #{value}
+        </where>
+    </update>
+
+
+    <select id="findBoardByNum" resultType="Board" parameterType="_int">
+        select * from board
+        <where>
+            <!--
+            sql문을 주입해서 공격하는 경우가 있음.
+            (param 값에 drop table 같은 공격을 넣는 경우)
+            MyBatis에선 그런 것을 막기 위한 태그를 제공해줌.
+            -->
+            num=#{num}
+        </where>
+    </select>
+
+    <delete id="deleteBoard">
+        delete from board
+        <where>
+            num = #{value}
+        </where>
+    </delete>
+
+    <update id="updateBoard" parameterType="Board">
+        update board
+        <set>
+            title=#{title},
+            content=#{content:VARCHAR},
+            passwd=#{passwd}
+
+            <if test = "fileName !=null and fileName != ''">
+                , fileName=#{fileName}
+                , fileSize=#{fileSize}
+                , originFilename=#{originFilename}
+            </if>
+        </set>
+        <where>
+            num=#{num}
+        </where>
+    </update>
 
 </mapper>
