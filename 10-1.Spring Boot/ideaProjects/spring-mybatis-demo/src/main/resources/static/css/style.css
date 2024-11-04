@@ -112,7 +112,7 @@ a:link{
     padding : 5px;
 }
 
-.login-wrap input[type ="text"], input[type="password"]{
+.login-wrap input[type ="text"], .login-wrap input[type="password"]{
     width:100%;
     padding : 8px;
     border : 1px solid #ddd;
@@ -128,4 +128,93 @@ a:link{
     font-size: 1em;
     width : 100px;
 
+}
+
+/* board 관련 style*/
+
+.boardWrap {
+    width : 90%;
+    margin : auto;
+}
+
+.boardWrap h1{
+    text-align : center;
+}
+
+.boardWrap .boardUl{
+    width : 100%;
+    margin : 0;
+    padding : 0;
+
+}
+
+.boardWrap li{
+    list-style : none;
+    float : left;
+    margin : 5px 0;
+}
+
+.clear{
+    clear:both;     /* float 속성 해제 */
+}
+
+.boardWrap li:nth-child(2n+1){
+    width:20%;
+    text-align : center;
+}
+
+.boardWrap li:nth-child(2n){
+    width:80%;
+}
+
+.boardUl li input{
+    padding : 5px;
+    width : 60%;
+    border : 1px solid #aaa;
+}
+
+.boardUl textarea{
+    width : 60%;
+    border : 1px solid #aaa;
+    padding : 5px;
+}
+
+.divBtn{
+    width : 100%;
+    margin : auto;
+    text-align:center;
+}
+
+
+/* BoardList의 CSS */
+ul.boardList{
+    width : 90%;
+    margin : auto;
+}
+
+ul.boardList li{
+    list-style:none;
+    border-bottom : 1px solid #ddd;
+    float:left;
+    height : 35px;
+    line-height:30px;
+}
+
+ul.boardList li:nth-child(5n+1){
+    width:10%;
+}
+
+ul.boardList li:nth-child(5n+2){
+    width:40%;
+}
+
+ul.boardList li:nth-child(5n+3){
+    width:20%;
+}
+
+ul.boardList li:nth-child(5n+4){
+    width:20%;
+}
+ul.boardList li:nth-child(5n){
+    width:10%;
 }

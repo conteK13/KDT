@@ -13,6 +13,7 @@
     </head>
     <body>
         <div class= "wrap">
+            <h1 class = "error"> Error 발생 </h1>
             <h3 class = "error"> ${msg}</h3>
         </div>
     </body>

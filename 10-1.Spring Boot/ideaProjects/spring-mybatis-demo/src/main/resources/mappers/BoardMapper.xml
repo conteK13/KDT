@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper
+3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosmo.board.mapper.BoardMapper">
+
+    <insert id="insertBoard" parameterType="com.kosmo.board.domain.BoardDTO">
+        <selectKey keyProperty="num" resultType="_int" order ="BEFORE">
+            select board_seq.nextVal from dual
+        </selectKey>
+        <!--
+            시퀀스 증가한 값을 keyProperty에 설정한 값(num)을 확인한 뒤
+            파라미터로 들어온 BoardDTO객체의 setNum(시퀀스증가값)을 호출하여 전달한다.
+        -->
+        insert into board(num, userId, title, content, passwd, filename, originFilename, fileSize)
+        values(#{num}, #{userId}, #{title}, #{content:VARCHAR}, #{passwd},
+        #{fileName:VARCHAR}, #{originFilename:VARCHAR}, #{fileSize:NUMERIC})
+    </insert>
+
+
+    <select id="getTotalCount" resultType="_int" parameterType="Paging">
+        select count(num) from board
+    </select>
+
+    <select id="listBoard" resultType="Board" parameterType="Paging">
+        select * from board order by num desc
+    </select>
+
+    <select id="findBoardByNum" resultType="Board" parameterType="_int">
+        select num, wdate, userId, fileName, originFilename, fileSize, title, content from board where num=#{num}
+    </select>
+
+</mapper>

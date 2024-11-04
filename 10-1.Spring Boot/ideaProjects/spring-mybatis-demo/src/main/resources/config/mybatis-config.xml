@@ -6,6 +6,8 @@
     <!-- 타입 별칭 설정============================ -->
     <typeAliases>
         <typeAlias type="com.kosmo.user.domain.MemberDTO" alias="Member"/>
+        <typeAlias type="com.kosmo.board.domain.BoardDTO" alias="Board"/>
+        <typeAlias type="com.kosmo.board.domain.PagingDTO" alias="Paging"/>
     </typeAliases>
 
 </configuration>

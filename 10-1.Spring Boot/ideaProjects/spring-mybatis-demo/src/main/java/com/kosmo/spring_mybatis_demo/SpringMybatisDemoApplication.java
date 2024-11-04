@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 		//(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.kosmo.user.controller", "com.kosmo"})
-@MapperScan(basePackages = {"com.kosmo.user.mapper"})
+@MapperScan(basePackages = {"com.kosmo.user.mapper", "com.kosmo.board.mapper"})
 public class SpringMybatisDemoApplication {
 
 	public static void main(String[] args) {
