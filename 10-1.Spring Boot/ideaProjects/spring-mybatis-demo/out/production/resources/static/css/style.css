@@ -112,7 +112,7 @@ a:link{
     padding : 5px;
 }
 
-.login-wrap input[type ="text"], input[type="password"]{
+.login-wrap input[type ="text"], .login-wrap input[type="password"]{
     width:100%;
     padding : 8px;
     border : 1px solid #ddd;
@@ -128,4 +128,221 @@ a:link{
     font-size: 1em;
     width : 100px;
 
+}
+
+/* board 관련 style*/
+
+.boardWrap {
+    width : 90%;
+    margin : auto;
+}
+
+.boardWrap h1{
+    text-align : center;
+}
+
+.boardWrap .boardUl{
+    width : 100%;
+    margin : 0;
+    padding : 0;
+
+}
+
+.boardWrap li{
+    list-style : none;
+    float : left;
+    margin : 5px 0;
+}
+
+.clear{
+    clear:both;     /* float 속성 해제 */
+}
+
+.boardWrap li:nth-child(2n+1){
+    width:20%;
+    text-align : center;
+}
+
+.boardWrap li:nth-child(2n){
+    width:80%;
+}
+
+.boardUl li input{
+    padding : 5px;
+    width : 60%;
+    border : 1px solid #aaa;
+}
+
+.boardUl textarea{
+    width : 60%;
+    border : 1px solid #aaa;
+    padding : 5px;
+}
+
+.divBtn{
+    width : 100%;
+    margin : auto;
+    text-align:center;
+}
+
+
+/* BoardList의 CSS */
+ul.boardList{
+    width : 90%;
+    margin : auto;
+}
+
+ul.boardList li{
+    list-style:none;
+    border-bottom : 1px solid #ddd;
+    float:left;
+    height : 35px;
+    line-height:30px;
+}
+
+ul.boardList li:nth-child(5n+1){
+    width:10%;
+}
+
+ul.boardList li:nth-child(5n+2){
+    width:40%;
+    text-align:left;
+}
+
+ul.boardList li:nth-child(5n+3){
+    width:20%;
+}
+
+ul.boardList li:nth-child(5n+4){
+    width:20%;
+}
+ul.boardList li:nth-child(5n){
+    width:10%;
+}
+
+/*  게시글 글 내용 스타일 */
+#boardView {
+    width : 90%;
+    margin : auto;
+}
+
+#boardView table{
+    width:100%;
+    max-width:760px;
+    margin : auto;
+    border-collapse : collapse;
+}
+
+#boardView table td{
+    padding : 8px;
+}
+
+#boardView #content{
+   height : 300px;
+}
+
+#divPasswd {
+    width : 70%;
+    margin : auto;
+    padding : 8px;
+    text-align : center;
+    margin-top : 1em;
+    display : none;
+}
+
+#divPasswd input{
+    padding : 5px;
+}
+
+#btn1 {
+    border : none;
+    background-color : #3f3;
+    padding : 4px;
+    border-radius : 5px;
+}
+
+li.title {
+    max-width:40%;
+    overflow:hidden;
+    text-overflow:ellipsis;   /* 말줄임표(...) */
+    white-space:nowrap;
+    display: inline-block;
+    vertical-align: top;
+}
+
+a.active{
+    color : red;
+    font-weight:bold;
+}
+
+#divFind{
+    width : 70%;
+    margin : 1em auto;
+    padding : 1em;
+}
+
+#divFind select{
+    padding:6px;
+}
+
+#divFind input{
+    padding:6px;
+    width : 50%;
+}
+
+#divFind .btnSearch{
+    padding : 6px;
+    width:100px;
+    background-color:#cba;
+    border : 1px solid #ddd;
+    border-radius:5px;
+}
+
+/*페이징 처리 관련 스타일*/
+/* 기본 페이징 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* 페이지 항목 스타일 */
+.page-item {
+    list-style: none;
+    margin: 0 1px;
+}
+
+/* 링크 스타일 */
+.page-link {
+    display: block;
+    padding: 3px 8px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 활성화된 페이지 */
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    cursor: default;
+}
+
+/* 마우스 오버 효과 */
+.page-link:hover {
+    background-color: #
+    color: #0056b3;
+    border-color: #dee2e6;
+}
+
+/* 비활성 페이지 항목 */
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
 }

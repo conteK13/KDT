@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper
+3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kosmo.board.mapper.BoardMapper">
+    <sql id="findWhere">
+        <if test="findType!='' and findKeyword!=''">
+            <where>
+                <if test="findType==1">
+                    title like '%'||#{findKeyword}||'%'
+                </if>
+
+                <if test="findType==2">
+                    userId like '%'||#{findKeyword}||'%'
+                </if>
+
+                <if test="findType==3">
+                    content like '%'||#{findKeyword}||'%'
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <insert id="insertBoard" parameterType="com.kosmo.board.domain.BoardDTO">
+        <selectKey keyProperty="num" resultType="_int" order ="BEFORE">
+            select board_seq.nextVal from dual
+        </selectKey>
+        <!--
+            시퀀스 증가한 값을 keyProperty에 설정한 값(num)을 확인한 뒤
+            파라미터로 들어온 BoardDTO객체의 setNum(시퀀스증가값)을 호출하여 전달한다.
+        -->
+        insert into board(num, userId, title, content, passwd, filename, originFilename, fileSize)
+        values(#{num}, #{userId}, #{title}, #{content:VARCHAR}, #{passwd},
+        #{fileName:VARCHAR}, #{originFilename:VARCHAR}, #{fileSize:NUMERIC})
+    </insert>
+
+
+    <select id="getTotalCount" resultType="_int" parameterType="Paging">
+        select count(num) from board
+        <include refid="findWhere"/>
+
+
+    </select>
+
+    <select id="listBoard_old" resultType="Board" parameterType="Paging">
+        select * from board order by num desc
+    </select>
+
+    <select id="listBoard_old2" resultType="Board" parameterType="Paging">
+        select * from
+        (select rownum rn, A.* from
+        (select (sysdate- to_date(to_char(wdate,'yy/mm/dd'))) newImg, b.*
+        from board b order by num desc) A)
+        where rn between #{start} and #{end}
+    </select>
+
+    <select id="listBoard" resultType="Board" parameterType="Paging">
+        select * from
+        (select rownum rn, A.* from
+        (select (sysdate- to_date(to_char(wdate,'yy/mm/dd'))) newImg, b.*
+        from board b
+        <include refid="findWhere"/>
+        order by num desc) A)
+        <![CDATA[
+        where rn > #{start} and rn < #{end}
+        ]]>
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="updateReadnum" parameterType="_int">
+        update board
+        <set>
+            readnum = readnum+1
+        </set>
+        <where>
+            num = #{value}
+        </where>
+    </update>
+
+
+    <select id="findBoardByNum" resultType="Board" parameterType="_int">
+        select * from board
+        <where>
+            <!--
+            sql문을 주입해서 공격하는 경우가 있음.
+            (param 값에 drop table 같은 공격을 넣는 경우)
+            MyBatis에선 그런 것을 막기 위한 태그를 제공해줌.
+            -->
+            num=#{num}
+        </where>
+    </select>
+
+    <delete id="deleteBoard">
+        delete from board
+        <where>
+            num = #{value}
+        </where>
+    </delete>
+
+    <update id="updateBoard" parameterType="Board">
+        update board
+        <set>
+            title=#{title},
+            content=#{content:VARCHAR},
+            passwd=#{passwd}
+
+            <if test = "fileName !=null and fileName != ''">
+                , fileName=#{fileName}
+                , fileSize=#{fileSize}
+                , originFilename=#{originFilename}
+            </if>
+        </set>
+        <where>
+            num=#{num}
+        </where>
+    </update>
+
+</mapper>
