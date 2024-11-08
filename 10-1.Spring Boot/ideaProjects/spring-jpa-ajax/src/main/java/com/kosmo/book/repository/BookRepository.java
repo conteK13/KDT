@@ -14,7 +14,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByPriceLessThan(int price);              // <price
     List<Book> findByPriceGreaterThanEqual(int price);      // >=price
     List<Book> findByPublishOrTitle(String publish, String title);
-
     List<Book> findByTitleLike(String title);   //like 검색
 
 }

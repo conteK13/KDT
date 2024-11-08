@@ -1,9 +1,6 @@
 package com.kosmo.book.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 /*
  * DTO(Data Transfer Object)와 Entity를 구분해서 작성하는 이유
  * - 영속성 계층과 표현 계층의 역할 분리
@@ -20,6 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter     //클라이언트로 넘어가는 정보를 제한하기 위해 ToString, Entity X
+@ToString
 public class BookDTO {
     private Long id;
     private String title;

@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/book/ui")
+@RequestMapping("/ui/books")
 public class BookUIController {
 
-    @GetMapping("/test")        //book/ui/test
+    @GetMapping("")        // ui/books
     public String testUI(){
 
         return "hello";      // 뷰네임
         //  "/WEB-INF/views/hello.jsp"
     }
 
-    @GetMapping(value = "/json", produces ={"application/json"})    // book/ui/json
+    @GetMapping(value = "/json", produces ={"application/json"})    // ui/books/json
     @ResponseBody
     public BookDTO getJsonData(){
         BookDTO dto = new BookDTO(1L, "Ajax 기초",
