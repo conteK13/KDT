@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="container p-4">
-            <h1 class="text-center my-4">Book - 도서관리 (Ajax & JPA)</h1>
+            <h1 class="text-center my-4">Book2 - 도서관리 (Ajax & JPA & FileUpload)</h1>
             <!-- 검색 버튼 --------------------------------------- -->
             <div id="findDiv" class="my-4">                
                 <button type="button" id="btnAll" class="btn btn-primary">모두보기</button>
@@ -87,6 +87,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>도서 이미지</td>
+                                <td>
+                                    <input type="file" name="mbookImage" id="mbookImage" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
                                 <td colspan="2" class="text-center">
                                     <button type="button" id="btnCreate" class="btn btn-danger">도서등록</button>
                                     <button type="button" id="btnUpdate" class="btn btn-warning" disabled>
@@ -101,5 +107,5 @@
             </div>
         </div>
     </body>
-    <script src="/js/bookUI.js" type="module"></script>
+    <script src="/js/bookUI2.js" type="module"></script>
 </html>

@@ -19,7 +19,7 @@
                 onclick="location.href='bookNaver.html'"
                  class="btn btn-info">OPEN API에서 검색</button><br /><br />
                 <!-- 도서제목 검색어: 텍스트박스  버튼 -->
-                <form id="searchFrm">
+                <form id="searchFrm" >
                     <div class="row my-3">
                         <div class="col-2 text-center">
                             <label for="keyword">검색할 도서명:</label>
@@ -28,6 +28,7 @@
                             <input type="text" name="keyword" id="keyword"
                             placeholder="검색할 도서명 입력하세요"
                              class="form-control">
+                            <input type="text" style="display: none;" disabled>
                         </div>
                         <div class="col-2">
                             <button type="button" id="btnSearch"
@@ -56,7 +57,7 @@
             </div>
             <div class="row">
                 <div id="bookImage" class="col-3 text-center">
-                    <img src="images/a.jpg" class="img-thumbnail" />
+                    <img src="images/noimage.jpg" class="img-thumbnail" />
                 </div>
                 <div id="frmDiv" class="col-9">
                     <form id="frm" name="frm">

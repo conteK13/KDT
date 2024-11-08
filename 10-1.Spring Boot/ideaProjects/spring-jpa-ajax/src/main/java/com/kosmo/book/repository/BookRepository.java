@@ -1,5 +1,6 @@
 package com.kosmo.book.repository;
 
+import com.kosmo.book.dto.BookDTO;
 import com.kosmo.book.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByPriceGreaterThanEqual(int price);      // >=price
     List<Book> findByPublishOrTitle(String publish, String title);
     List<Book> findByTitleLike(String title);   //like 검색
+    List<Book> findByTitleContainingIgnoreCase(String title);
 
 }

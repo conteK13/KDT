@@ -33,6 +33,18 @@ const addBook=async(newBook)=>{
 
 }
 
+const findBook=async(keyword)=>{
+    try{
+        let url = baseUrl+`?search=${keyword}`;
+//        let url = baseUrl+"?search="+keyword;
+        const response=await fetch(url);
+        const data = await response.json();
+        renderBooks(data);
+    }catch(error){
+        alert('Error: ' +error);
+    }
+}
+
 const getAllBooks= async ()=>{
     try{
         const response=await fetch(baseUrl);
@@ -92,27 +104,88 @@ const getBook= async(id)=>{
     // alert(id);
     // 그걸 받아서 input에 value 넣어주기
     // document.querySelector('#아이디').value = "받은값"
-
     try{
         // GET /api/books/21
         // fetch()이용해서 요청 보내기 ===> 해당 도서 정보를 json 유형으로 백엔드에서 보낸다.
         const response = await fetch(baseUrl+"/"+id);
         // baseUrl+`/${id}`
-        const result = await response.json();       // 응답이 올때까지 기다려
-        if(result!=null){
-            document.querySelector("#isbn").value = result.id;
-            document.querySelector("#title").value = result.title;
-            document.querySelector("#publish").value = result.publish;
-            document.querySelector("#price").value = result.price;
-            document.querySelector(".img-thumbnail").src = "images/"+result.bookImage;
-        }else{
-            alert("찾을 수 없습니다");
-        }
-
+        const data = await response.json();       // 응답이 올때까지 기다려
+        setFormData(data);
     }catch(error){
         alert('Error: ' +error);
     }
 }
 
+const setFormData=(data)=>{
+    if(!data){
+        alert("해당 도서 정보가 없습니다");
+        return
+    }else{
+        document.querySelector("#isbn").value = data.id;
+        document.querySelector("#title").value = data.title;
+        document.querySelector("#publish").value = data.publish;
+        document.querySelector("#price").value = data.price;
+        let str = '';
 
-export {getAllBooks, addBook, getBook}
+        if(data.bookImage!=null){
+            str=`<img src="/images/${data.bookImage}" class="img img-thumbnail" alt ="${data.title}">`
+        }else{
+            // 도서 정보가 없을 경우 ==> noimage.jpg
+            str=`<img src="/images/noimage.jpg" class="img img-thumbnail" alt ="${data.title}">`
+        }
+        document.querySelector("#bookImage").innerHTML=str;
+
+        const btnUpdate = document.querySelector("#btnUpdate");
+        btnUpdate.removeAttribute('disabled');
+    }
+}// getBook----------------
+
+// PUT /api/books   : 응답body 수정할 도서 정보
+const updateBook=async(tmpBook)=>{
+    try{
+        const response = await fetch(baseUrl,{
+            method: 'PUT',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(tmpBook)
+        })
+        const data = await response.json();
+        if(data.status =="success"){
+            getAllBooks();
+            // input 초기화
+            clearInput();
+            // 수정버튼 비활성화(disabled)
+            document.querySelector("#btnUpdate").setAttribute("disabled", "disabled"); // 비활성화
+        }else{
+            alert(data.message);
+        }
+    }catch(error){
+        alert("Error" + error);
+    }
+}//updateBook-----------
+
+const clearInput=()=>{
+    document.getElementById("isbn").value = "";
+    document.getElementById("title").value = "";
+    document.getElementById("publish").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("bookImage").innerHTML="";
+
+    document.getElementById("title").focus();       // 입력 포커스 추가
+}
+
+const goRemove=async(id)=>{
+    let yn = confirm(id+"번 도서를 삭제할까요?")
+    if(!yn) return;
+    // DELETE /api/books/3
+    let url = baseUrl+`/${id}`;
+    const response = await fetch(url, {
+        method:'DELETE'
+    })
+    const data = await response.json();
+    getAllBooks();
+}//--------------------------------
+
+
+export {getAllBooks, addBook, getBook, updateBook, goRemove, findBook}

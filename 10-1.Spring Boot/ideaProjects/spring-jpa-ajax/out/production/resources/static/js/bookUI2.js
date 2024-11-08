@@ -1,5 +1,4 @@
-import {getAllBooks, addBook, getBook, updateBook, goRemove, findBook} from './bookApi.js'
-
+import {getAllBooks, addBook, getBook, updateBook, goRemove, findBook} from './bookAPI2.js'
 
 const init =()=>{
     getAllBooks(); // 모든 도서목록 가져오기
@@ -38,9 +37,13 @@ const init =()=>{
         // 3. bookAPI.js의 findBook(키워드)
         findBook(keyword.value.trim());
     }
-
-    btnCreate.onclick=()=>{     // 등록 버튼
+    const getFormData=()=>{
         //사용자가 입력한 값 받기
+        // 첨부 파일
+
+        const mbookImage = document.querySelector("#mbookImage").files[0];
+        console.log("mbookImage ========{}", mbookImage);
+
         const title = document.querySelector("#title").value;
         const publish = document.querySelector("#publish").value;
         const price = document.querySelector("#price").value;
@@ -55,43 +58,33 @@ const init =()=>{
             alert('가격은 숫자여야 해요');
             return;
         }
-
-        const tmpBook = {   //json 객체로 만들자.
-            "title":title,
-            "publish" : publish,
-            "price" : price
+        // 파일 업로드 시에는 formData를 전송
+        let formData = new FormData();
+        formData.append("title", title);
+        formData.append("publish", publish);
+        formData.append("price", price);
+        if(mbookImage){
+            formData.append("mbookImage", mbookImage);
         }
+
+        return formData;
+
+    }
+
+    // 파일 업로드 할 때는 ===> FormData 객체의 파라미터 데이터를 함께 보내야 한다.
+    btnCreate.onclick=()=>{     // 등록 버튼
+        let formData = getFormData();
         // api 요청을 보내는 함수 호출
-        addBook(tmpBook);       //bookApi.js
+        addBook(formData);       //bookApi2.js
 
     }// btnCreate end------------
 
     btnUpdate.onclick=()=>{
+        // 사용자가 입력한 값 받기
         const isbn = document.querySelector("#isbn").value;
-        const title = document.querySelector("#title").value;
-        const publish = document.querySelector("#publish").value;
-        const price = document.querySelector("#price").value;
-
-        // 유효성 체크
-        if(!title || !publish || !price){
-            alert('모든 값을 입력해야 해요.');
-            return;
-        }
-
-        if(isNaN(price)){       // is not a number 함수. 숫자가 아니면 true를 반환.
-            alert('가격은 숫자여야 해요');
-            return;
-        }
-
-        const tmpBook = {   //json 객체로 만들자.
-            "id" : isbn,
-            "title" : title,
-            publish,
-            price
-        }
-        console.log("tmpBook==={}",tmpBook);        // 속성명과 변수명이 같으면 축약해서 사용 가능
-        updateBook(tmpBook);
-
+        let formData = getFormData();
+        formData.append("id", isbn);
+        updateBook(formData);
     }// btnUpdate end------------
 
 }// init end -------------

@@ -23,5 +23,5 @@ public class BookDTO {
     private String title;
     private String publish;
     private int price;
-    private String BookImage;
+    private String bookImage;
 }

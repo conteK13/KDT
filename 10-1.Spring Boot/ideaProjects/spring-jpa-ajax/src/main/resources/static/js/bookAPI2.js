@@ -6,7 +6,9 @@ const baseUrl ='/api/books'
 // DELETE   /api/books/15       ==>15번 도서 정보 삭제하기
 // PUT      /api/books          ==> 도서정보 수정하기
 
-const addBook=async(newBook)=>{
+
+// 파일 업로드 처리 관련
+const addBook=async(formData)=>{
     try{
         // post 방식일때는 method에 post를 명시한다.
         // 파라미터 데이터 형태로 보내는 것이 아니라 json 유형으로 데이터를 보내려면
@@ -14,11 +16,14 @@ const addBook=async(newBook)=>{
         // json 데이터는 문자열로 직렬화해서 보내야 함.
         const response = await fetch(baseUrl, {
             method:'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(newBook)
+            body: formData
         })
+        /* form 데이터 객체를 사용하면 아래 설정 안해도 된다.
+        headers: {
+            'Content-Type' : 'multipart/firm-data'
+        },
+        */
+
         const data = await response.json();
         // alert(JSON.stringify(data))
         if(data.status == "success"){
@@ -141,14 +146,11 @@ const setFormData=(data)=>{
 }// getBook----------------
 
 // PUT /api/books   : 응답body 수정할 도서 정보
-const updateBook=async(tmpBook)=>{
+const updateBook=async(formData)=>{
     try{
         const response = await fetch(baseUrl,{
             method: 'PUT',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(tmpBook)
+            body:formData
         })
         const data = await response.json();
         if(data.status =="success"){
