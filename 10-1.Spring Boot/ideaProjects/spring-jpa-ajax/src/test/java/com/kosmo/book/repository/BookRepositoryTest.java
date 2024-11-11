@@ -1,11 +1,17 @@
 package com.kosmo.book.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kosmo.book.dto.BookDTO;
 import com.kosmo.book.entity.Book;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +30,9 @@ class BookRepositoryTest {
     void print(){
         System.out.println("*".repeat(50));
     }
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void testSave(){
@@ -117,4 +126,29 @@ class BookRepositoryTest {
         System.out.println("entity : "+entity);
         bookRepository.save(entity);
     }
-}
+
+    @Test
+    public void testConvert2(){
+        BookDTO dto=new BookDTO(null,"DTO테스트","위키북스",5000,"w.jpg");
+        Book book=objectMapper.convertValue(dto, Book.class);
+        System.out.println("book====="+book);
+    }
+
+    @Test
+    public void testBookPaging(){
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        // Sort sort2 = Sort.by("title").ascending();
+        Pageable pageable = PageRequest.of(0,3, sort);
+        Page<Book> page = bookRepository.findAll(pageable);
+        System.out.println("page================= "+ page);
+        // 해당 페이지의 게시글 목록 List<Book> getContent()
+        System.out.println("content============== "+page.getContent());
+        //총 게시글 수 가져오기 : long getTotalElements()
+        System.out.println("총 게시물 수=========== "+page.getTotalElements());
+        System.out.println("총 페이지 수=========== "+page.getTotalPages());
+        System.out.println("한 페이지 당 목록 개수=== "+pageable.getPageSize());
+        System.out.println("pageable============= "+page.getPageable());
+        System.out.println("현제 페이지 번호======== "+page.getPageable().getPageNumber());
+        // 현재 페이지 번호 : 0 => 1페이지에 0을 반환
+    }
+}// class end /////////////////////////////////

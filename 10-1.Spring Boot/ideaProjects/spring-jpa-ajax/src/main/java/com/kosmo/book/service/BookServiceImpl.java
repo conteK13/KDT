@@ -6,8 +6,12 @@ import com.kosmo.book.dto.BookDTO;
 import com.kosmo.book.entity.Book;
 import com.kosmo.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
+@Transactional
 public class BookServiceImpl implements BookService{
 
     private final BookRepository bookRepository;
@@ -22,7 +28,7 @@ public class BookServiceImpl implements BookService{
     //Entity와 DTO 객체를 변환할때 사용
 
     @Override
-    public List<BookDTO> getAllBooks(String search) {
+    public List<BookDTO> getAllBooks(String search) {   // 페이지 처리 안한 경우
         List<Book> list= null;
 
         if (search.isBlank()) {
@@ -94,5 +100,21 @@ public class BookServiceImpl implements BookService{
         Book updateEntity = bookRepository.save(existEntity); //tmpEntity);
 
         return updateEntity;
+    }
+
+    @Override
+    public Page<BookDTO> getBooksPaging(String search, Pageable pageable) {
+        Page<Book> books = null;
+        if(search.isBlank()){
+            log.info("************************");
+            books=bookRepository.findAll(pageable);     //모든 데이터 가져오기
+        }else{
+            log.info("########################");
+            books=bookRepository.findByTitleLikeIgnoreCase("%"+search+"%", pageable);
+        }
+        log.info("book======={}", books);
+        // Page<Book> =======> Page<BookDTO> 타입으로 변환해야 함
+        Page<BookDTO> booksPage = books.map(entity->objectMapper.convertValue(entity, BookDTO.class));
+        return booksPage;
     }
 }
