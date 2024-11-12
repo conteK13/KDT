@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자 맞추기 게임</title>
+    <script>
+        count = 0;
+        n = 53;
+        function func(){
+            count++;
+            document.getElementById("count").value = count;
+
+            input = document.getElementById("input").value;
+            if(input == n){
+                input = "정답입니다";
+            }else if(input>n){
+                input = "입력한 값이 더 큽니다";
+            }else{
+                input = "입력한 값이 더 작습니다";
+            }
+            document.getElementById("hint").value = input
+        }
+    </script>
+    <style>
+        body {
+            text-align:center;
+            background-color: #f2f2f2;
+            margin : 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding :20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0, 0, 0.1);
+        }
+
+        input[type = "text"] {
+            width : 100%;
+            margin : 8px auto;
+            padding : 10px;
+            box-sizing : border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            background-color: #1f4720;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2> 숫자 맞추기 게임</h2>
+    <p> 이 게임은 컴퓨터가 생성한 숫자를 맞추는 게임입니다. 숫자는 1부터 100사이에 있습니다.</p>
+    <img src = "images/guessing_game.png" alt="Guess Game">
+    <form>
+        <br>
+        숫자 : <br>
+        <input type="text" id = "input" ><br>
+        <button type="button" id="cheack" onclick="func();" class = "button">확인</button><br>
+        <!-- onclick 후에 ;로 구분짓는 습관을 들이자 -->
+        추측횟수 : <br>
+        <input type="text" id ="count"><br>
+        힌트 : <br>
+        <input type="text" id = "hint"> <br>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 공학용 계산기 </title>
+    <script>
+        function fcal(n){
+            let num = parseFloat(document.getElementById("input").value);
+            if (n==1){ 
+                result = Math.sin((num* Math.PI)/180);
+            }else if(n==2){
+                result = Math.log(num);
+            }else if(n==3){
+                result = Math.sqrt(num);
+            }else if(n==4){
+                result = Math.abs(num);
+            }
+            document.getElementById("result").value = result;
+        }
+
+    </script>
+</head>
+<body>
+    입력:<input type="text" id = "input"> <br>
+    계산 결과:<input type="text" id = "result"> <br>
+
+    <button onclick="fcal(1)">SIN</button>
+    <button onclick="fcal(2)">LOG</button>
+    <button onclick="fcal(3)">SQRT</button>
+    <button onclick="fcal(4)">ABS</button>
+</body>
+</html>

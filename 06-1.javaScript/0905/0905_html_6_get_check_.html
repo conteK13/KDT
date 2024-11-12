@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> check 박스의 값 확인하기 </title>
+    <script>
+        function get(){
+            if(document.getElementById("myCheckBox").checked){
+                document.getElementById("result").value = "동의하셨습니다.";
+            }else{
+                document.getElementById("result").value = "동의하지 않으셨습니다.";
+            }
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <input type="checkbox" id = "myCheckBox">동의합니다. <br>
+        <input type="button" onclick="get();" value="클릭">
+        <input type="text" id = "result" value="">
+    </form>
+</body>
+</html>

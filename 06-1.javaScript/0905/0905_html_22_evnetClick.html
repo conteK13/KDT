@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라디오 버튼으로 배경색 변경</title>
+    <script>
+        function col(c){
+            document.getElementById("target").style.backgroundColor=c;
+        }
+    </script>
+</head>
+<body id = "target">
+    <form method="post">
+        <input type="radio" name="color" value="green" onclick="col('lightgreen')"> 녹색
+        <input type="radio" name="color" value="blue" onclick="col('lightblue')"> 파란색     
+    </form>
+</body>
+</html>

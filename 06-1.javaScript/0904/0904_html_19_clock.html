@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시계 만들기 개선 예제 </title>
+    <style>
+
+        body {
+            font-size :20px;
+            text-align: center;
+        }
+
+        .size {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .color{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="date"></h2>
+    <span id="temp"></span>
+    <span id="time" class = "size color"></span>
+    <script>
+        setInterval(clock, 1000);
+
+        function clock(){
+            let now = new Date();
+
+            years = now.getFullYear();
+            months = now.getMonth()+1;
+            dates = now.getDate();
+            day = now.getDay();
+            str_day= ["일","월","화", "수", "목","금","토"];
+
+            //result1 = years + "년 " + months + "월 " + dates+"일 "+str_day[day]+"요일";
+            result1 = months + "월 " + dates+"일 "+str_day[day]+"요일";
+
+
+            hours = now.getHours();
+            if (hours > 12){
+                ampm = "오후 ";
+                hours = hours -12;
+            }else{
+                ampm = "오전 "
+            }
+
+            
+            minutes = String(now.getMinutes()).padStart(2, '0');
+            seconds = String(now.getSeconds()).padStart(2, '0');
+            result2 = ampm +hours + ":" + minutes + ":"+seconds;
+
+            document.getElementById("date").innerHTML = result1;
+            document.getElementById("temp").innerHTML = "현재 시각 ";
+            document.getElementById("time").innerHTML = result2;
+
+            //setTimeout("clock()", 1000);
+            // 다른 명령어를 실행 시킬 수 없음.
+        }
+        function clock1(){
+            let now = new Date();
+
+            years = now.getFullYear();
+            months = now.getMonth()+1;
+            dates = now.getDate();
+            day = now.getDay();
+            str_day= ["일","월","화", "수", "목","금","토"];
+
+            //result1 = years + "년 " + months + "월 " + dates+"일 "+str_day[day]+"요일";
+            result1 = months + "월 " + dates+"일 "+str_day[day]+"요일";
+            result2 = now.toLocaleTimeString();
+
+            document.getElementById("date").innerHTML = result1;
+            document.getElementById("temp").innerHTML = "현재 시각 ";
+            document.getElementById("time").innerHTML = result2;
+
+        }
+    
+        // clock();
+    </script>
+</body>
+</html>

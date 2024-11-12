@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> </title>
+    <script>
+        checkid = false
+        function idCheck(){
+            let serverid = 'aaaaa';
+            userid = document.getElementById("id").value;
+            if (serverid == userid){
+                checkid = false
+                alert("이미 사용중인 아이디입니다.")
+            }else if(userid==""){
+                checkid = false
+                alert("아이디를 입력하세요")
+            }else{
+                checkid=true
+                alert("사용가능한 아이디입니다.")
+            }
+        }
+
+        function fpass(){
+            let passwordch = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-_])(?=.*[0-9]).{8,25}$/;
+            let pass = document.getElementById("pass").value;
+            if(!(pass.match(passwordch))){
+                alert("영문 숫자 특수문자를 조합하여, 8자 이상 25자 미만으로 만드세요");
+                return false;
+            }else{
+                let passch = document.getElementById("passch").value;
+                if(pass != passch){
+                    alert("비밀번호와 비밀번호 재확인이 다릅니다!");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+
+        function fname(){
+            let name = document.getElementById("name").value;
+            if(name.length == 0){
+                alert("이름을 입력하세요.");
+                return false;
+            }
+        }
+
+        function fdate(){
+            let year = document.getElementById("year").value;
+            let days =document.getElementById("days").value;
+            yearch = /^\d{4}$/
+            ///^[0-9]{4}$/ 
+            if(!year.match(yearch) || !((days>=1) && (days<=31))){
+                alert("생년월일을 제대로 선택하세요");
+                return false;
+            }
+        }
+
+        function fgender(){
+            let gender = document.getElementsByName("gender");
+            if(!(gender[0].checked || gender[1].checked)){
+                alert("성별을 선택하세요");
+                return false;
+            }
+        }
+
+        function ftel(){
+            let tel = document.getElementById("tel").value;
+            let telch = /^[0-9]+$/;
+            if(!(tel.match(telch))){
+                alert("전화번호에 숫자를 입력하세요");
+                return false;
+            }
+        }
+
+        function fagree(){
+        let agree = document.getElementById("agree");
+        if (!agree.checked){
+            alert("약관에 동의하세요");
+            return false;
+            }
+        }
+
+        function checkAll(){
+            alltrue = true
+            
+            if (checkid ==false){
+                alert("중복 아이디를 확인하세요");
+                alltrue = false;
+            }
+
+            if(fpass() == false){
+                alltrue = false;
+            }
+
+            if(fname()==false){
+                alltrue =false;
+            }
+            
+            if(fdate()==false){
+                alltrue = false;
+            }
+            if(fgender() == false){
+                alltrue = false;
+            }
+
+            if(ftel()==false){
+                alltrue=false;
+            }
+
+            if(fagree()==false){
+                alltrue = false;
+            }
+            
+            if(alltrue==true){
+                alert("가입이 완료되었습니다")
+            }else{
+                alert("수정 후 다시 오세요.")
+            }
+        }
+    </script>
+</head>
+<body style="background-color: gray;" > 
+    <form style="margin: 20px auto; padding: 1%; background-color: white; width: 30%;">
+        아이디 : <input type="text" id="id"> <input type="button" value="중복확인" onclick="idCheck();"><br>
+        비밀번호 : <input type="password" id="pass"> <br>
+        비밀번호 확인 : <input type="password" id="passch"> <br>
+        이름 : <input type="text" id="name"><br>
+        생년월일 : <input type="text" id="year" size="4">
+        <select id = "month">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <input id="days" size="2"><br>
+        성별 :
+        <input type="radio" name = "gender" value="male"> 남성
+        <input type="radio" name = "gender" value="female"> 여성<br>
+        전화번호 : <input type="text" id="tel"><br>
+        약관동의 <input type="checkbox" id="agree"> 약관에 동의합니다.<br>
+        <input type="reset" value="초기화"> <input type="button" value="가입하기" onclick="checkAll()">
+    </form>
+</body>
+</html>

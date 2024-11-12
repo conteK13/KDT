@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 아이디 확인 </title>
+    <script>
+        function checkid(){
+            let s = document.getElementById("id").value;
+            if (s.length < 6){
+                alert("아이디는 6글자 이상이어야 합니다");
+            }else{
+                alert("사용가능한 아이디 입니다.");
+            }
+        }
+    </script>
+</head>
+<body>
+    아이디 : 
+    <input type="text" id = "id" size =10>
+    <button onclick="checkid()"> 검사</button>
+</body>
+</html>

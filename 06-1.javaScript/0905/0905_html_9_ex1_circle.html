@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 원의 면적과 구의 부피 계산</title>
+    <script>
+        function radius(){
+            let result, r;
+            r = document.getElementById("r").value;
+            if(document.getElementsByName("cal")[0].checked){
+                // area 구하기
+                result = Math.pow(r,2) * Math.PI;
+            }else{
+                result = Math.pow(r,3) * Math.PI * (4/3);
+            }
+            document.getElementById("result").value = result;
+        }
+    </script>
+</head>
+<body>
+    <form>
+        반지름 : <input type = "text" id = "r"> 
+        <input type="radio" name = "cal" value ="area" checked >AREA
+        <input type="radio" name = "cal" value ="volume">VOLUME
+        <br>
+        
+        연산결과 : <input type="text" id = "result">
+        <input type="button" onclick="radius();" value = "계산">
+    </form>
+</body>
+</html>
