@@ -1,40 +1,13 @@
 server:
   port: 8080
-
-spring:
-  application:
-    name: spring-jpa-ajax
-  datasource:
-    url: jdbc:oracle:thin:@localhost:1521/xe
-    username: c##scott
-    password: tiger
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+  servlet :
+    jsp:
+      init-parameters:
+        development: true
   devtools:
     livereload:
-      enable: true
-  jpa:
-    hibernate:
-      ddl-auto: update #개발 중에는 update나 create. 배포시에는 none으로 수정
-      show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.OracleDialect
-  logging:
-    level:
-      org.hibernate.SQL: debug
-      org.hibernate.type: trace
-  servlet:
-    multipart:
       enabled: true
-      max-file-size: 100MB
-      max-request-size: 100MB
-
-
-
-
-
+spring:
+  profiles:
+#    active: dev     #mysql
+    active: prod   #oracle
