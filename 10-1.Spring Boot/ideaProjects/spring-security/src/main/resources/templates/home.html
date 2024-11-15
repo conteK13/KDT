@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <style>
+        .gradient-custom {
+          background: linear-gradient(to right, rgba(176, 217, 230, 1), rgba(137, 207, 250, 1))
+        }
+        #menu{
+            width:70%;
+            margin:auto;
+            display:flex;
+            justify-content:space-around;
+        }
+
+        body *{
+            text-align:center;
+        }
+    </style>
+</head>
+<body class="gradient-custom">
+<section class="d-flex vh-100">
+    <div class="container-fluid column justify-content-center align-content-center">
+        <h1 th:text="${msg}" class ="text-danger"> </h1>
+        <h2 th:text="${#authentication.name}">Guest</h2>
+<!--/*        <h2 th:text="${#authentication.principal.name}">Guest</h2>*/-->
+        <!--/* authentication : 현재 인증된 사용자 정보를 제공하는 객체
+        authentication.pricipal : MyUser객체. 사용자 세부 정보(이름, 이메일, 권한)을 포함하는 객체를 볼 수 있다.
+
+        */-->
+        <hr>
+        <div id="menu" >
+            <!-- 로그인 하지 않은 경우 회원가입, 로그인 출력 -->
+            <a href = "/signup" sec:authorize="!isAuthenticated()"> Signup</a>
+            <a href = "/login" sec:authorize="!isAuthenticated()"> Login</a>
+            <!-- 로그인 했다면 로그아웃 출력 -->
+            <a href = "/logout" sec:authorize="isAuthenticated()"> Logout</a>
+
+            <a href = "/admin/users"> Admin[회원관리] </a>
+            <a href = "/admin/books"> Admin[상품관리] </a>
+
+            <a href = "/auth/myPage"> MyPage </a>
+            <a href = "/auth/cart"> Cart </a>
+        </div>
+        <hr>
+    </div>
+</section>
+</body>
+</html>

@@ -15,6 +15,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     // List<Book> : findAll() : 기본적으로 제공되는 메서드
     // Page<Book> : findAll(Pageable) : 페이징 기능을 포함한 모든 목록 가져오기
 
+
     List<Book> findByTitle(String title);
     List<Book> findByPublish(String publish);
     List<Book> findByPriceLessThan(int price);              // <price

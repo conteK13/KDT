@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>세부 페이지</title>
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container p-4">
+        <h1> 도서 세부 페이지 </h1>
+        <div>
+            <button type="button" onclick="history.back()" class="btn btn-primary">이전 페이지</button>
+            <button type="button" onclick="location.href='index.html'"> index </button>
+        </div>
+
+        <div id="detail_result"></div>
+        <form id ="book_reviews>">
+            <input type="hidden" name="bookId" id="bookId"> </td>
+            <table>
+                <tr>
+                    <td> 작성자id </td>
+                    <td> <input type="text" name="member" id="member"> </td>
+<!--                    <td> 비밀번호 </td>-->
+<!--                    <td> <input type="password" name="ppass" id="ppass"> </td>-->
+                    <td> 별점</td>
+                    <td> <input type="number" name="rating" id="rating"> </td>
+                </tr>
+
+                <tr>
+                    <td> 내용 </td>
+                    <td>
+                        <textarea name="content" id="content"></textarea>
+                    </td>
+                    <td>
+                        <button type="button" name="postReview" id="postReview"> 작성하기 </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div id="reviewList" name="reviewList"> test </div>
+    </div>
+</body>
+<script>
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search); // URLSearchParams는 쿼리 스트링을 파싱하는 API
+        return urlParams.get(param); // 특정 파라미터를 반환
+    }
+
+    const dResult = document.querySelector("#detail_result");
+    const init=()=>{
+        const id = getQueryParam('id'); // URL에서 id 파라미터 값 가져오기
+        const bookId = document.querySelector('#bookId');
+        const rPost = document.querySelector('#postReview');
+        if (id) {
+            bookId.value = id;
+            //console.log("ID:", id); // 예시로 ID 출력
+            findBookDetail(id); // id 값을 통해 책 세부 정보를 가져오는 함수 호출
+            findBookReview(id); //
+        } else {
+            //console.log("ID 파라미터가 없습니다.");
+        }
+
+        rPost.onclick=()=>{
+            const rating = document.querySelector("#rating").value;
+            const content = document.querySelector("#content").value;
+            const bookId = document.querySelector("#bookId").value;
+            const member = document.querySelector("#member").value;
+
+            // 유효성 체크
+            if(!rating || !content || !member || !bookId){
+                alert('모든 값을 입력해야 해요.');
+                return;
+            }
+
+            if(isNaN(rating)){       // is not a number 함수. 숫자가 아니면 true를 반환.
+                alert('별점은 숫자여야 해요');
+                return;
+            }
+            // 파일 업로드 시에는 formData를 전송
+            let formData = new FormData();
+            formData.append("id", 0);
+            formData.append("rating", rating);
+            formData.append("content", content);
+            formData.append("bookId", bookId);
+            formData.append("memberId", member);
+
+            //console.log(formData);
+
+            console.log("rating", formData.get("rating"));
+            console.log("content", formData.get("content"));
+            console.log("bookId", formData.get("bookId"));
+            console.log("memberId", formData.get("memberId"));
+            addReview(formData);
+        }
+    };
+
+    const findBookReview=async(id)=>{
+        let url = `/books/reviews/${id}`;
+        const response=await fetch(url);
+        const reviews = await response.json();
+
+        displayReview(reviews)
+        // reviewList
+    }
+    const displayReview = (reviews) => {
+        const rList = document.querySelector("#reviewList");
+        str = '';
+
+        reviews.forEach(review =>{
+        str += `
+                <p><strong>리뷰아이디 :</strong> ${review.id}</p>
+                <p><strong>작성자아이디 :</strong> ${review.memberId}</p>
+                <p><strong>내용:</strong> ${review.content}</p>
+                <p><strong>평점:</strong> ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</p>
+                <br><br>
+        `;
+        });
+        rList.innerHTML = str;}
+
+    const findBookDetail=async(id)=>{
+        let url = `/books/${id}`;
+
+        const response=await fetch(url);
+        const data = await response.json();
+        //renderBooks(data);
+
+        displayBookDetail(data);
+    }
+
+
+    const displayBookDetail = (book) => {
+        const detailResult = document.querySelector("#detail_result");
+        let str = '';
+        str += `<img src = "/images/${book.bookImage}" style="width:200px">`; //class="img img-thumbnail"
+        str += `<h2>${book.title}</h2>`;
+        str += `<p><strong>출판사:</strong> ${book.publish}</p>`;
+        str += `<p><strong>ISBN:</strong> ${book.id}</p>`;
+        str += `<p><strong>가격:</strong> ${book.price}원</p>`;
+        str += '';
+
+        detailResult.innerHTML = str;
+    };
+
+    const addReview=async(formData)=>{
+        try{
+            let url = '/books/review';
+            console.log("url", url);
+            const response = await fetch(url, {
+                method:'POST',
+                body: formData
+            })
+            /* form 데이터 객체를 사용하면 아래 설정 안해도 된다.
+            headers: {
+                'Content-Type' : 'multipart/firm-data'
+            },
+            */
+
+            const data = await response.json();
+            // alert(JSON.stringify(data))
+            if(data.status == "success"){
+                findBookReview(formData.get("bookId"));  // 리뷰 목록 가져오기
+            }else{
+                alert(data.message);
+            }
+        }catch(error){
+            alert('Error: ' +error);
+            console.error(error)
+        }
+
+    };
+
+    window.onload = init;
+</script>
+</html>

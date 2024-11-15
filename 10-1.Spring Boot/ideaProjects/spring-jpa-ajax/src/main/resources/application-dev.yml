@@ -18,7 +18,7 @@ spring:
       enable: true
   jpa:
     hibernate:
-      ddl-auto: create #개발 중에는 update나 create. 배포시에는 none으로 수정
+      ddl-auto: update #개발 중에는 update나 create. 배포시에는 none으로 수정
       show-sql: true
     properties:
       hibernate:

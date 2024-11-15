@@ -46,7 +46,7 @@ const getAllBooks= async (page, search)=>{
         let sortBy = "id";      // id 오름차순
 
         let url = `${baseUrl}?page=${page}&size=${pageSize}&sortBy=${sortBy}&search=${search}`;
-        console.log('url = ', url);
+        //console.log('url: ', url);
         const response=await fetch(url);
         const data = await response.json();
         //renderBooks(data);

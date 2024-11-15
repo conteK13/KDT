@@ -9,5 +9,5 @@ server:
       enabled: true
 spring:
   profiles:
-#    active: dev     #mysql
-    active: prod   #oracle
+    active: dev     #mysql
+#    active: prod   #oracle

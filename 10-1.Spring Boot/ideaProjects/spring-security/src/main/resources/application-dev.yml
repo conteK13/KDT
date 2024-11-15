@@ -1,0 +1,23 @@
+server:
+  port: 9091
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpaDB?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password: mysql904#
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update #개발 중에는 update나 create, 배포시에는 none으로 권장
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  #        physical_naming_strategy: com.kosmo.jpa.demo.util.CustomPhysicalNamingStrategy
+  logging:
+    level:
+      org.hibernate.SQL: debug
+      org.hibernate.type: trace
+
+

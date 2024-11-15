@@ -1,12 +1,18 @@
 package com.kosmo.book.controller;
 
 import com.kosmo.book.dto.BookDTO;
+import com.kosmo.book.dto.BookReviewDTO;
 import com.kosmo.book.dto.ResponseDTO;
+import com.kosmo.book.dto.ReviewDTO;
 import com.kosmo.book.entity.Book;
+import com.kosmo.book.entity.Review;
+import com.kosmo.book.repository.ReviewRepository;
 import com.kosmo.book.service.BookService;
+import com.kosmo.book.service.ReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +34,10 @@ import java.util.UUID;
 @RequiredArgsConstructor    // 생성자 인젝션(final 필드 주입)
 public class BookRestPagingController {
     private final BookService bookService;
+    private final ReviewService reviewService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @PostMapping("")    // 파일 업로드 기능이 들어갈 경우
     public ResponseEntity<ResponseDTO> bookServeAndUp(BookDTO dto, @RequestParam(name="mbookImage", required = false)MultipartFile mbookImage,
@@ -94,10 +104,11 @@ public class BookRestPagingController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "id") String sortBy){
-        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy).ascending());
-        Map<String, Object> map = new HashMap<>();
-        log.info("search======={}",search);
-        Page<BookDTO> bookPage = bookService.getBooksPaging(search, pageable);
+        Pageable pageable
+                = PageRequest.of(page,size, Sort.by(sortBy).ascending());
+        Map<String, Object> map=new HashMap<>();
+        log.info("search====={}", search);
+        Page<BookDTO> bookPage =bookService.getBooksPaging(search,pageable);
         // 페이징 블럭 관련 로직
         int pagingBlock = 5;    // 페이징 블럭 단위 : 5
         // Preb | 1 ~ 5 | next
@@ -171,7 +182,7 @@ public class BookRestPagingController {
     public BookDTO testDTO(){
         return new BookDTO(100L, "Restful API", "한빛 출판사", 5000, "restful_api.jpg");
     }
-    
+
     @GetMapping("/jsonArr")
     public List<BookDTO> testArrayList(){
         BookDTO b1 = new BookDTO(100L, "Restful API", "한빛 출판사", 5000, "1.jpg");
@@ -180,5 +191,27 @@ public class BookRestPagingController {
         return List.of(b1, b2, b3);
     }
 
+
+
+    @GetMapping("/reviews/{id}")
+    public List<ReviewDTO> getReviewList(@PathVariable("id") Long id){
+        //log.info("id=========={}",id);
+        List<ReviewDTO> list = reviewRepository.findReviewsByBookId(id);
+
+        return list;
+    }
+
+    @PostMapping("/review")
+    public ResponseEntity<ResponseDTO> reviewServeAndUp(ReviewDTO dto){
+        log.info("컨트롤러 시작");
+        Review entity = reviewService.saveReview(dto);
+        log.info("entity======{}", entity);
+
+        String status =(entity==null)?"fail":"success";
+        String message = (entity ==null)?"리뷰 등록 실패" : "리뷰 등록 완료";
+
+        ResponseDTO resDto = new ResponseDTO(status, message);
+        return ResponseEntity.status(200).body(resDto);
+    }// -----------------------------
 
 }

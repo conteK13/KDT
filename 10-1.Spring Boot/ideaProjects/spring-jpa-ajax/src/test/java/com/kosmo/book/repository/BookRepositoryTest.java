@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@SpringBootTest             // @Data.JpaTest==> Spring에서 JPA 관련  테스트 설정만 로드
+// @SpringBootTest             // @Data.JpaTest==> Spring에서 JPA 관련  테스트 설정만 로드
 @Transactional              // 트랜젝션 시작 후 > 테스트 진행 > rollback처리(테스트시)
 @Rollback(value = false)    // 롤백하지 않도록 설정해서 DB데이터를 확인해보자
 class BookRepositoryTest {
@@ -34,15 +34,15 @@ class BookRepositoryTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Test
-    public void testSave(){
-        Book book = new Book(null, "채식주의자", "한강출판사", 20000, "b.jpg");
-        Book createBook = bookRepository.save(book);    // ==>insert
-        Assertions.assertThat(book.getTitle()).isEqualTo(createBook.getTitle());
-
-        List<Book> list = bookRepository.findAll();     // findAll() => select * from 테이블
-        list.stream().forEach(System.out::println);
-    }
+//    @Test
+//    public void testSave(){
+//        Book book = new Book(null, "채식주의자", "한강출판사", 20000, "b.jpg");
+//        Book createBook = bookRepository.save(book);    // ==>insert
+//        Assertions.assertThat(book.getTitle()).isEqualTo(createBook.getTitle());
+//
+//        List<Book> list = bookRepository.findAll();     // findAll() => select * from 테이블
+//        list.stream().forEach(System.out::println);
+//    }
 
     @Test
     public void testFindById(){

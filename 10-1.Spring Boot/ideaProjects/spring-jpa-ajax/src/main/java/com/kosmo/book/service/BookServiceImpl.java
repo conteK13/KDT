@@ -3,8 +3,10 @@ package com.kosmo.book.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kosmo.basic.entity.BookEntity;
 import com.kosmo.book.dto.BookDTO;
+import com.kosmo.book.dto.BookReviewDTO;
 import com.kosmo.book.entity.Book;
 import com.kosmo.book.repository.BookRepository;
+import com.kosmo.book.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +27,7 @@ public class BookServiceImpl implements BookService{
 
     private final BookRepository bookRepository;
     private final ObjectMapper objectMapper;
+    private final ReviewRepository reviewRepository;
     //Entity와 DTO 객체를 변환할때 사용
 
     @Override
@@ -117,4 +120,12 @@ public class BookServiceImpl implements BookService{
         Page<BookDTO> booksPage = books.map(entity->objectMapper.convertValue(entity, BookDTO.class));
         return booksPage;
     }
+
+    @Override
+    public List<BookReviewDTO> getReviewsForBook(Long bookId) {
+        return reviewRepository.findByReviewsByBookId(bookId);
+    }//------------------------------
+
+
+
 }

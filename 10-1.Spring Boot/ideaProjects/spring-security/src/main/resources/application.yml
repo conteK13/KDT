@@ -1,0 +1,13 @@
+server:
+  port: 9090
+  servlet:
+    jsp:
+      init-parameters:
+        development: true
+  devtools:
+    livereload:
+      enabled: true
+spring:
+  profiles:
+    active: dev
+#    active: prod

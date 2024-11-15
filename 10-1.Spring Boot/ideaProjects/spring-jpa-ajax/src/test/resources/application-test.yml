@@ -1,0 +1,40 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: spring-jpa-ajax
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpadb
+    username: root
+    password: mysql904#
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  devtools:
+    livereload:
+      enable: true
+  jpa:
+    hibernate:
+      ddl-auto: update #개발 중에는 update나 create. 배포시에는 none으로 수정
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  logging:
+    level:
+      org.hibernate.SQL: debug
+      org.hibernate.type: trace
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+
+
+
+
