@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버스명 정류소타입 검색</title>
+    <style>
+        body {
+            background: linear-gradient(60deg, #05B5E6 50%, pink 50%);
+            margin: 0; /* 기본 여백 제거 */
+            height: 100vh; /* 컨테이너 높이를 화면 높이로 설정 */
+        }
+
+        form{
+            align-items: center;
+            margin: 20px auto;
+            padding: 5%;
+            background-color: white;
+            width: 400px;
+        }
+        input{
+            background-color: #F5F5F5;
+            height: 25px;
+            border: 0;
+            width: 280px;
+        }
+
+        .inputButton{
+            background-color: #232363;
+            color: white;
+            font-size: smaller;
+            width: 80px;
+            height: 75px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="/buscheck">
+        <h2>버스 검색</h2>
+        <span>정류장명</span><br>
+        <div style=" display: flex;">
+            <div>
+                <input type="text" name="name" id ="name" required><br>
+                <span>정류장타입</span><br>
+                <input type="text" name="type" id ="type" required><br>
+            </div>
+            <br>
+            <input type="submit" value ="확인하기" class="inputButton">
+        </div>
+    </form>
+</body>
+</html>
